@@ -35,6 +35,14 @@ namespace Sistema_de_Vendas.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Login(LoginModel login)
+        {
+            bool loginOk = login.ValidarLogin();
+            
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
