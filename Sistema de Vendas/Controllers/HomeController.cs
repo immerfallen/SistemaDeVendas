@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Sistema_de_Vendas.Uteis;
 
 namespace Sistema_de_Vendas.Controllers
 {
@@ -19,11 +20,17 @@ namespace Sistema_de_Vendas.Controllers
         }
 
         public IActionResult Index()
-        {
+        {            
+           
             return View();
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult Login()
         {
             return View();
         }
