@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Sistema_de_Vendas.Uteis;
+using Microsoft.AspNetCore.Http;
 
 namespace Sistema_de_Vendas.Controllers
 {
@@ -35,14 +36,29 @@ namespace Sistema_de_Vendas.Controllers
             return View();
         }
 
+        public IActionResult Menu()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Login(LoginModel login)
         {
             if (ModelState.IsValid)
-            {           
+            {
                 bool loginOk = login.ValidarLogin();
+                if (loginOk)
+                {
+                    HttpContext.Session.SetString("IdUsuarioLogado", login.Id);
+                    HttpContext.Session.SetString("NomeUsuarioLogado", login.Nome);
+                    return RedirectToAction("Menu","Home");
+                }
+                else
+                {
+                    TempData["ErroLogin"] = "E-mail ou Senha estão incorretos!";
+                    
+                }
             }
-
             return View();
         }
 
