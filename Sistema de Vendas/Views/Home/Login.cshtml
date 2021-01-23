@@ -1,121 +1,131 @@
-﻿@model LoginModel    
+﻿@model LoginModel
+
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 
 <style>
-        .login-form {
-            width: 400px;
-            margin: 30px auto;
+    .login-form {
+        width: 400px;
+        margin: 30px auto;
+    }
+
+        .login-form form {
+            margin-bottom: 15px;
+            background: #f7f7f7;
+            box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+            padding: 30px;
         }
 
-            .login-form form {
-                margin-bottom: 15px;
-                background: #f7f7f7;
-                box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-                padding: 30px;
-            }
-
-            .login-form h2 {
-                margin: 0 0 15px;
-            }
-
-        .form-control, .login-btn {
-            border-radius: 2px;
+        .login-form h2 {
+            margin: 0 0 15px;
         }
 
-        .input-group-prepend .fa {
-            font-size: 18px;
+    .form-control, .login-btn {
+        border-radius: 2px;
+    }
+
+    .input-group-prepend .fa {
+        font-size: 18px;
+    }
+
+    .login-btn {
+        font-size: 15px;
+        font-weight: bold;
+        min-height: 40px;
+    }
+
+    .social-btn .btn {
+        border: none;
+        margin: 10px 3px 0;
+        opacity: 1;
+    }
+
+        .social-btn .btn:hover {
+            opacity: 0.9;
         }
 
-        .login-btn {
-            font-size: 15px;
-            font-weight: bold;
-            min-height: 40px;
+    .social-btn .btn-secondary, .social-btn .btn-secondary:active {
+        background: #507cc0 !important;
+    }
+
+    .social-btn .btn-info, .social-btn .btn-info:active {
+        background: #64ccf1 !important;
+    }
+
+    .social-btn .btn-danger, .social-btn .btn-danger:active {
+        background: #df4930 !important;
+    }
+
+    .or-seperator {
+        margin-top: 20px;
+        text-align: center;
+        border-top: 1px solid #ccc;
+    }
+
+        .or-seperator i {
+            padding: 0 10px;
+            background: #f7f7f7;
+            position: relative;
+            top: -11px;
+            z-index: 1;
         }
-
-        .social-btn .btn {
-            border: none;
-            margin: 10px 3px 0;
-            opacity: 1;
-        }
-
-            .social-btn .btn:hover {
-                opacity: 0.9;
-            }
-
-        .social-btn .btn-secondary, .social-btn .btn-secondary:active {
-            background: #507cc0 !important;
-        }
-
-        .social-btn .btn-info, .social-btn .btn-info:active {
-            background: #64ccf1 !important;
-        }
-
-        .social-btn .btn-danger, .social-btn .btn-danger:active {
-            background: #df4930 !important;
-        }
-
-        .or-seperator {
-            margin-top: 20px;
-            text-align: center;
-            border-top: 1px solid #ccc;
-        }
-
-            .or-seperator i {
-                padding: 0 10px;
-                background: #f7f7f7;
-                position: relative;
-                top: -11px;
-                z-index: 1;
-            }
-    </style>
+</style>
 
 
-    <div class="login-form">
-        <form asp-controller="Home" asp-action="Login" method="post">
-            <h2 class="text-center">Sistema de Vendas</h2>
-            @{ try
-                {
-                    var erro = TempData["ErroLogin"].ToString();
-                    <div class="text-center h6">
-                        <span class="text-danger ">@erro</span>
-                    </div>
-                }
-                catch
-                {
-
-                }
-            }
-
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <span class="fa fa-user"></span>
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" asp-for="Email" placeholder="Usuário">
+<div class="login-form">
+    <form asp-controller="Home" asp-action="Login" method="post">
+        <h2 class="text-center">Sistema de Vendas</h2>
+        @{ try
+            {
+                var erro = TempData["ErroLogin"].ToString();
+                <div class="text-center h6">
+                    <span class="text-danger ">@erro</span>
                 </div>
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">
-                            <i class="fa fa-lock"></i>
-                        </span>
-                    </div>
-                    <input type="password" class="form-control" asp-for="Senha" placeholder="Senha">
-                </div>
-                <span asp-validation-for="Senha" class="text-danger"></span>
-            </div>
-            <div class="form-group mb-2">
-                <button type="submit" class="btn btn-primary login-btn btn-block">Entrar</button>
-            </div>
+            }
+            catch
+            {
 
-            <div class="clearfix">
-                <label class="float-left form-check-label"><input type="checkbox" class="mr-1">Mantenha-me conectado</label>
-                <a href="#" class="float-right">Esqueceu a senha?</a>
+            }
+        }
+
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <span class="fa fa-user"></span>
+                    </span>
+                </div>
+                <input type="text" class="form-control" asp-for="Email" placeholder="Usuário">
             </div>
-        </form>
-        <p class="text-center text-muted small">Ainda não é cadastrado? <a href="#">Cadastre-se aqui!</a></p>
-    </div>
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                <input type="password" class="form-control" asp-for="Senha" placeholder="Senha">
+            </div>
+            <span asp-validation-for="Senha" class="text-danger"></span>
+        </div>
+        <div class="form-group mb-2">
+            <button type="submit" class="btn btn-primary login-btn btn-block">Entrar</button>
+        </div>
+
+        <div class="clearfix">
+            <label class="float-left form-check-label"><input type="checkbox" class="mr-1">Mantenha-me conectado</label>
+            <a href="#" class="float-right">Esqueceu a senha?</a>
+        </div>
+    </form>
+    <p class="text-center text-muted small">Ainda não é cadastrado? <a href="#">Cadastre-se aqui!</a></p>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 

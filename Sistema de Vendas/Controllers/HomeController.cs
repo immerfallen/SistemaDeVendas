@@ -31,8 +31,17 @@ namespace Sistema_de_Vendas.Controllers
             return View();
         }
 
-        public IActionResult Login()
+        public IActionResult Login(int? id)
         {
+            //Para realizar o logout
+            if(id != null)
+            {
+                if(id==0)
+                {
+                    HttpContext.Session.SetString("IdUsuarioLogado", string.Empty);
+                    HttpContext.Session.SetString("NomeUsuarioLogado", string.Empty);
+                }
+            }
             return View();
         }
 
