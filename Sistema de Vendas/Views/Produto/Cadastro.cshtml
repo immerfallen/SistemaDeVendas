@@ -3,10 +3,10 @@
 <h2>Cadastro de Produtos</h2>
 
 <form asp-controller="Produto" asp-action="Cadastro">
-    <input type="hidden" asp-for="Id" value=" @try{ @ViewBag.Produto.Id } catch { }" />
+    <input type="hidden" asp-for="Id" value=" @try { @ViewBag.Produto.Id } catch { }" />
     <div class="form-group">
         <label>Nome</label>
-        <input type="text" asp-for="Nome" class="form-control" value=" @try{@ViewBag.Produto.Nome } catch { }" />
+        <input type="text" asp-for="Nome" class="form-control" value=" @try {@ViewBag.Produto.Nome } catch { }" />
         <span asp-validation-for="Nome" class="text-danger"></span>
     </div>
     <div class="form-group">
@@ -28,24 +28,49 @@
     </div>
     <div class="form-group">
         <label>Preço Unitário</label>
-        <input type="text" asp-for="PrecoUnitario" class="form-control" value="@try{@ViewBag.Produto.PrecoUnitario } catch { }" />
+        <input type="text" asp-for="PrecoUnitario" class="form-control" value="@try {@ViewBag.Produto.PrecoUnitario } catch { }" />
         <span asp-validation-for="PrecoUnitario" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Quantidade em estoque</label>
-        <input type="text" asp-for="QuantidadeEstoque" class="form-control" value="@try{@ViewBag.Produto.QuantidadeEstoque } catch { }" />
+        <input type="text" asp-for="QuantidadeEstoque" class="form-control" value="@try {@ViewBag.Produto.QuantidadeEstoque } catch { }" />
         <span asp-validation-for="QuantidadeEstoque" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Unidade de Medida</label> 
-        <input type="text" asp-for="UnidadeMedida" class="form-control" value="@try{@ViewBag.Produto.UnidadeMedida } catch { }" />
+       @*<input type="text" asp-for="UnidadeMedida" class="form-control" value="@try{@ViewBag.Produto.UnidadeMedida } catch { }" />*@
+        @{ 
+            var vUnidadeMedida = "";
+            try
+            {
+                vUnidadeMedida = ViewBag.Produto.UnidadeMedida;
+            }
+            catch
+            {
+
+
+            }
+        }
+        <select asp-for="UnidadeMedida" class="form-control">
+            @{ if (vUnidadeMedida != "")
+                {
+                   <option value="@vUnidadeMedida" selected>@vUnidadeMedida</option>
+                }
+                    }
+            <option value="un">un</option>
+            <option value="cx">cx</option>
+            <option value="kg">kg</option>
+            <option value="g">g</option>
+            <option value="lt">lt</option>
+            <option value="ton">ton</option>
+        </select>
         <span asp-validation-for="UnidadeMedida" class="text-danger"></span>
     </div>
     <div class="form-group">
         <label>Foto</label>
         @try
         {
-            <img src="@ViewBag.Produto.LinkFoto " width="150" height="150" />
+            <img src="@ViewBag.Produto.LinkFoto" width="150" height="150" />
         }
         catch
         {
@@ -58,4 +83,11 @@
     
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
 </form>
+<button type="button" class="btn btn-block btn-primary mt-2" onclick="Listagem()">Listagem de Produtos</button>
+
+<script>
+    function Listagem() {
+        window.location.href = "../../Produto/Index"
+    }
+</script>
 

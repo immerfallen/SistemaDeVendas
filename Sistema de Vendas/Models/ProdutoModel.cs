@@ -11,17 +11,23 @@ namespace Sistema_de_Vendas.Models
     public class ProdutoModel
     {
         public string Id { get; set; }
+
         [Required(ErrorMessage = "Informe o Nome do Produto")]
         public string Nome { get; set; }
+
         [Required(ErrorMessage = "Informe a Descricao do Produto")]
         public string Descricao { get; set; }
 
+
         [Required(ErrorMessage = "Informe o Preço Unitário do Produto")]
-        public decimal PrecoUnitario { get; set; }
+        public decimal? PrecoUnitario { get; set; }
+
         [Required(ErrorMessage = "Informe Quantidade em Estoque do Produto")]
-        public decimal QuantidadeEstoque { get; set; }
+        public decimal? QuantidadeEstoque { get; set; }
+
         [Required(ErrorMessage = "Informe a Unidade de Medida do Produto")]
         public string UnidadeMedida { get; set; }
+
         [Required(ErrorMessage = "Informe o Link da Foto do Produto")]
 
         public string LinkFoto { get; set; } 
