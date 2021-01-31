@@ -7,12 +7,12 @@ using Sistema_de_Vendas.Models;
 
 namespace Sistema_de_Vendas.Controllers
 {
-    public class ClienteController : Controller
+    public class VendedorController : Controller
     {
         public IActionResult Index()
         {
 
-            ViewBag.ListaClientes = new ClienteModel().ListarTodosClientes();
+            ViewBag.ListaVendedores = new VendedorModel().ListarTodosVendedores();
 
             return View();
         }
@@ -23,21 +23,21 @@ namespace Sistema_de_Vendas.Controllers
         {
             if (id!= null)
             {
-                //Carregar o registro do cliente em uma ViewBag
-                ViewBag.Cliente = new ClienteModel().RetornarCliente(id);
+                //Carregar o registro do Vendedor em uma ViewBag
+                ViewBag.Vendedor = new VendedorModel().RetornarVendedor(id);
             }  
 
             return View();
         }
 
         [HttpPost]
-        public IActionResult Cadastro(ClienteModel cliente)
+        public IActionResult Cadastro(VendedorModel vendedor)
         {
 
             if (ModelState.IsValid)
             {
-                cliente.Gravar();
-                return RedirectToAction("Index", "Cliente");
+                vendedor.Gravar();
+                return RedirectToAction("Index", "Vendedor");
             }
 
             return View();
@@ -50,9 +50,9 @@ namespace Sistema_de_Vendas.Controllers
             return View();
         }
 
-        public IActionResult ExcluirCliente(int id)
+        public IActionResult ExcluirVendedor(int id)
         {
-            new ClienteModel().Excluir(id);
+            new VendedorModel().Excluir(id);
             return View();
         }
     }

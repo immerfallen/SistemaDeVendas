@@ -8,16 +8,14 @@ using System.Data;
 
 namespace Sistema_de_Vendas.Models
 {
-    public class ClienteModel
+    public class VendedorModel
     {
         public string Id { get; set; }
-        [Required(ErrorMessage ="Informe o Nome do cliente")]
+        [Required(ErrorMessage ="Informe o Nome do Vendedor")]
         public string Nome { get; set; }
+                
 
-        [Required(ErrorMessage = "Informe o CPF ou CNPJ do cliente")]
-        public string CPF_CNPJ { get; set; }
-
-        [Required(ErrorMessage = "Informe o E-mail do cliente")]
+        [Required(ErrorMessage = "Informe o E-mail do Vendedor")]
         [DataType(DataType.EmailAddress)]
         [EmailAddress(ErrorMessage = "O e-mail informado é inválido")]
         public string  Email { get; set; }
@@ -25,21 +23,20 @@ namespace Sistema_de_Vendas.Models
 
 
 
-        public List<ClienteModel> ListarTodosClientes()
+        public List<VendedorModel> ListarTodosVendedores()
         {
-            List<ClienteModel> lista = new List<ClienteModel>();
-            ClienteModel item;
+            List<VendedorModel> lista = new List<VendedorModel>();
+            VendedorModel item;
             DAL objDAL = new DAL();
-            string sql = "SELECT id, nome, cpf_cnpj, email, senha FROM cliente ORDER BY nome ASC";
+            string sql = "SELECT id, nome, email, senha FROM Vendedor ORDER BY nome ASC";
             DataTable dt = objDAL.RetDataTable(sql);
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {
-                item = new ClienteModel()
+                item = new VendedorModel()
                 {
                     Id = dt.Rows[i]["Id"].ToString(),
                     Nome = dt.Rows[i]["Nome"].ToString(),
-                    CPF_CNPJ = dt.Rows[i]["CPF_CNPJ"].ToString(),
                     Email = dt.Rows[i]["Email"].ToString(),
                     Senha = dt.Rows[i]["Senha"].ToString()
                 };
@@ -56,30 +53,29 @@ namespace Sistema_de_Vendas.Models
 
             if (Id == null)
             {
-                sql = $"INSERT INTO cliente(nome, cpf_cnpj, email, senha) VALUES ('{Nome}', '{CPF_CNPJ}', '{Email}', '123456') ";
+                sql = $"INSERT INTO Vendedor(nome, email, senha) VALUES ('{Nome}', '{Email}', '123456') ";
                
             }
             else
             {
-                sql = $"UPDATE cliente SET nome = '{Nome}', cpf_cnpj = '{CPF_CNPJ}', email = '{Email}' WHERE id = '{Id}' ";
+                sql = $"UPDATE Vendedor SET nome = '{Nome}', email = '{Email}' WHERE id = '{Id}' ";
                 
             }
             objDAL.ExecutarComandoSQL(sql);
         }
 
-        public ClienteModel RetornarCliente(int? id)
+        public VendedorModel RetornarVendedor(int? id)
         {
             
-            ClienteModel item;
+            VendedorModel item;
             DAL objDAL = new DAL();
-            string sql = $"SELECT id, nome, cpf_cnpj, email, senha FROM cliente WHERE id='{id}'";
+            string sql = $"SELECT id, nome, email, senha FROM Vendedor WHERE id='{id}'";
             DataTable dt = objDAL.RetDataTable(sql);
             
-                item = new ClienteModel()
+                item = new VendedorModel()
                 {
                     Id = dt.Rows[0]["Id"].ToString(),
                     Nome = dt.Rows[0]["Nome"].ToString(),
-                    CPF_CNPJ = dt.Rows[0]["CPF_CNPJ"].ToString(),
                     Email = dt.Rows[0]["Email"].ToString(),
                     Senha = dt.Rows[0]["Senha"].ToString()
                 };              
@@ -91,7 +87,7 @@ namespace Sistema_de_Vendas.Models
             DAL objDAL = new DAL();
             string sql = string.Empty;
 
-                sql = $"DELETE FROM cliente WHERE id = '{id}'";            
+                sql = $"DELETE FROM Vendedor WHERE id = '{id}'";            
             
             objDAL.ExecutarComandoSQL(sql);
         }
