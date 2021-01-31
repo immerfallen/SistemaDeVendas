@@ -70,7 +70,7 @@
         <label>Foto</label>
         @try
         {
-            <img src="@ViewBag.Produto.LinkFoto" width="150" height="150" />
+            <img src="@ViewBag.Produto.LinkFoto" width="150" height="150"/>
         }
         catch
         {
@@ -79,7 +79,7 @@
 
             <input type="text" asp-for="LinkFoto" class="form-control" value="@try{@ViewBag.Produto.LinkFoto } catch { }" />
             <span asp-validation-for="LinkFoto" class="text-danger"></span>
-        </div>
+    </div>
     
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
 </form>

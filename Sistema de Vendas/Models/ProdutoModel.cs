@@ -66,12 +66,12 @@ namespace Sistema_de_Vendas.Models
 
             if (Id == null)
             {
-                sql = $"INSERT INTO Produto(nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto) VALUES ('{Nome}', '{Descricao}' , '{PrecoUnitario.ToString().Replace(",",".")}', '{QuantidadeEstoque.ToString().Replace(",", ".")}', '{UnidadeMedida}', '{LinkFoto}') ";
+                sql = $"INSERT INTO Produto(nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto) VALUES ('{Nome}', '{Descricao}' , '{PrecoUnitario}', '{QuantidadeEstoque}', '{UnidadeMedida}', '{LinkFoto}') ";
 
             }
             else
             {
-                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}', preco_unitario  = {PrecoUnitario.ToString().Replace(",",".")}, quantidade_estoque  = '{QuantidadeEstoque.ToString().Replace(",", ".")}', unidade_medida  = '{UnidadeMedida}', link_foto  = '{LinkFoto}' WHERE id = '{Id}' ";
+                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}', preco_unitario  = {PrecoUnitario}, quantidade_estoque  = '{QuantidadeEstoque}', unidade_medida  = '{UnidadeMedida}', link_foto  = '{LinkFoto}' WHERE id = '{Id}' ";
 
             }
             objDAL.ExecutarComandoSQL(sql);
