@@ -15,29 +15,23 @@ namespace Sistema_de_Vendas.Models
         public string Nome { get; set; }
         [Required(ErrorMessage = "Informe a Descricao do Produto")]
         public string Descricao { get; set; }
+
         [Required(ErrorMessage = "Informe o Preço Unitário do Produto")]
-        public float PrecoUnitario { get; set; }
+        public decimal PrecoUnitario { get; set; }
         [Required(ErrorMessage = "Informe Quantidade em Estoque do Produto")]
-        public float QuantidadeEstoque { get; set; }
+        public decimal QuantidadeEstoque { get; set; }
         [Required(ErrorMessage = "Informe a Unidade de Medida do Produto")]
-        public char UnidadeMedida { get; set; }
+        public string UnidadeMedida { get; set; }
         [Required(ErrorMessage = "Informe o Link da Foto do Produto")]
 
-        public string LinkFoto { get; set; }
-
-        
-        
-       
-
-
-
+        public string LinkFoto { get; set; } 
 
         public List<ProdutoModel> ListarTodosProdutos()
         {
             List<ProdutoModel> lista = new List<ProdutoModel>();
             ProdutoModel item;
             DAL objDAL = new DAL();
-            string sql = "SELECT id, nome, descricao FROM Produto ORDER BY nome ASC";
+            string sql = "SELECT id, nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto FROM Produto ORDER BY nome ASC";
             DataTable dt = objDAL.RetDataTable(sql);
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -47,7 +41,11 @@ namespace Sistema_de_Vendas.Models
                     Id = dt.Rows[i]["Id"].ToString(),
                     Nome = dt.Rows[i]["Nome"].ToString(),
                     Descricao = dt.Rows[i]["Descricao"].ToString(),
-                   
+                    PrecoUnitario = decimal.Parse(dt.Rows[i]["preco_unitario"].ToString()),
+                    QuantidadeEstoque = decimal.Parse(dt.Rows[i]["quantidade_estoque"].ToString()),
+                    UnidadeMedida = dt.Rows[i]["unidade_medida"].ToString(),
+                    LinkFoto = dt.Rows[i]["link_foto"].ToString(),
+
                 };
                 lista.Add(item);
 
@@ -62,12 +60,12 @@ namespace Sistema_de_Vendas.Models
 
             if (Id == null)
             {
-                sql = $"INSERT INTO Produto(nome, descricao) VALUES ('{Nome}', '{Descricao}', ) ";
+                sql = $"INSERT INTO Produto(nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto) VALUES ('{Nome}', '{Descricao}' , '{PrecoUnitario.ToString().Replace(",",".")}', '{QuantidadeEstoque.ToString().Replace(",", ".")}', '{UnidadeMedida}', '{LinkFoto}') ";
 
             }
             else
             {
-                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}' WHERE id = '{Id}' ";
+                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}', preco_unitario  = {PrecoUnitario.ToString().Replace(",",".")}, quantidade_estoque  = '{QuantidadeEstoque.ToString().Replace(",", ".")}', unidade_medida  = '{UnidadeMedida}', link_foto  = '{LinkFoto}' WHERE id = '{Id}' ";
 
             }
             objDAL.ExecutarComandoSQL(sql);
@@ -78,7 +76,7 @@ namespace Sistema_de_Vendas.Models
 
             ProdutoModel item;
             DAL objDAL = new DAL();
-            string sql = $"SELECT id, nome, descricao FROM Produto WHERE id='{id}'";
+            string sql = $"SELECT id, nome, descricao, preco_unitario, quantidade_estoque, unidade_medida, link_foto FROM Produto WHERE id='{id}'";
             DataTable dt = objDAL.RetDataTable(sql);
 
             item = new ProdutoModel()
@@ -86,6 +84,11 @@ namespace Sistema_de_Vendas.Models
                 Id = dt.Rows[0]["Id"].ToString(),
                 Nome = dt.Rows[0]["Nome"].ToString(),
                 Descricao = dt.Rows[0]["Descricao"].ToString(),
+                PrecoUnitario = decimal.Parse(dt.Rows[0]["preco_unitario"].ToString().Replace(",", ".")),
+                QuantidadeEstoque = decimal.Parse(dt.Rows[0]["quantidade_estoque"].ToString().Replace(",", ".")),
+                UnidadeMedida = dt.Rows[0]["unidade_medida"].ToString(),
+                LinkFoto = dt.Rows[0]["link_foto"].ToString(),
+               
                 
             };
 
