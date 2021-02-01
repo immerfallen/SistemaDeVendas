@@ -19,6 +19,8 @@ namespace Sistema_de_Vendas.Controllers
         [HttpPost]
         public IActionResult Registrar(VendaModel venda)
         {
+            venda.Inserir();
+            CarregarDados(); // necessário colocar aqui o método pois caso contrário ao renderizar as View as ViewBags estarão vazias
             return View();
         }
 
