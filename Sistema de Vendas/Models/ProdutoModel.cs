@@ -71,7 +71,7 @@ namespace Sistema_de_Vendas.Models
             }
             else
             {
-                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}', preco_unitario  = {PrecoUnitario}, quantidade_estoque  = '{QuantidadeEstoque}', unidade_medida  = '{UnidadeMedida}', link_foto  = '{LinkFoto}' WHERE id = '{Id}' ";
+                sql = $"UPDATE Produto SET nome = '{Nome}', descricao  = '{Descricao}', preco_unitario  = {PrecoUnitario.ToString().Replace(",",".")}, quantidade_estoque  = '{QuantidadeEstoque}', unidade_medida  = '{UnidadeMedida}', link_foto  = '{LinkFoto}' WHERE id = '{Id}' ";
 
             }
             objDAL.ExecutarComandoSQL(sql);
@@ -90,8 +90,8 @@ namespace Sistema_de_Vendas.Models
                 Id = dt.Rows[0]["Id"].ToString(),
                 Nome = dt.Rows[0]["Nome"].ToString(),
                 Descricao = dt.Rows[0]["Descricao"].ToString(),
-                PrecoUnitario = decimal.Parse(dt.Rows[0]["preco_unitario"].ToString().Replace(",", ".")),
-                QuantidadeEstoque = decimal.Parse(dt.Rows[0]["quantidade_estoque"].ToString().Replace(",", ".")),
+                PrecoUnitario = decimal.Parse(dt.Rows[0]["preco_unitario"].ToString()),
+                QuantidadeEstoque = decimal.Parse(dt.Rows[0]["quantidade_estoque"].ToString()),
                 UnidadeMedida = dt.Rows[0]["unidade_medida"].ToString(),
                 LinkFoto = dt.Rows[0]["link_foto"].ToString(),
                
