@@ -1,0 +1,58 @@
+﻿@model RelatorioModel;
+
+<h2>Vendas por Período</h2>
+
+
+
+<form asp-controller="Relatorios" asp-action="Vendas">
+    
+    <div class="form-group">
+        <label>Período</label>
+        <input type="date" asp-for="DataDe" class="form-control" />
+        <input type="date" asp-for="DataAte" class="form-control" />
+       
+   
+    </div>
+    <button type="submit" class="btn btn-block btn-success mb-4">Pesquisar</button>
+</form>
+
+
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Data</th>
+            <th>Vendedor</th>
+            <th>Cliente</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            try
+            {
+
+
+                foreach (var item in (List<VendaModel>)ViewBag.ListaVendas)
+                {
+                    <tr>
+
+                        <td>@item.Id</td>
+                        <td>@item.Data</td>
+                        <td>@item.VendedorId</td>
+                        <td>@item.ClienteId</td>
+                        <td>@item.Total</td>
+                    </tr>
+                }
+            }
+            catch
+            {
+
+            }
+        }     
+
+
+    </tbody>
+</table>
+            

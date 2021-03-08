@@ -21,12 +21,22 @@ namespace Sistema_de_Vendas.Models
         public string VendedorId { get; set; }
         public string ProdutoId { get; set; }
         
+        public List<VendaModel> ListagemVendas(string DataDe, string DataAte)
+        {
+            return RetornarListagemVendas(DataDe, DataAte);
+        }
         public List<VendaModel> ListagemVendas()
         {
+            return RetornarListagemVendas("1900/01/01","2200/01/01");
+        }
+
+
+
+            private List<VendaModel> RetornarListagemVendas(string DataDe,string DataAte) {
             List<VendaModel> lista = new List<VendaModel>();
             VendaModel item;
             DAL objDAL = new DAL();
-            string sql = "select v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente from venda v1 inner join vendedor v2 on  v1.vendedor_id = v2.id inner join cliente c on v1.cliente_id = c.id order by data, total";
+            string sql = $"select v1.id, v1.data, v1.total, v2.nome as vendedor, c.nome as cliente from venda v1 inner join vendedor v2 on  v1.vendedor_id = v2.id inner join cliente c on v1.cliente_id = c.id where v1.data >=  '{DataDe}' and v1.data <= '{DataAte}' order by data, total";
             DataTable dt = objDAL.RetDataTable(sql);
 
             for (int i = 0; i < dt.Rows.Count; i++)
@@ -35,16 +45,15 @@ namespace Sistema_de_Vendas.Models
                 {
                     Id = dt.Rows[i]["Id"].ToString(),
                     Data = DateTime.Parse(dt.Rows[i]["Data"].ToString()).ToString("dd/MM/yyyy"),
-                    Total = double.Parse(dt.Rows[i]["Total"].ToString()),                    
+                    Total = double.Parse(dt.Rows[i]["Total"].ToString()),
                     ClienteId = dt.Rows[i]["Cliente"].ToString(),
-                    VendedorId = dt.Rows[i]["Vendedor"].ToString(),                  
+                    VendedorId = dt.Rows[i]["Vendedor"].ToString(),
                 };
                 lista.Add(item);
 
             }
             return lista;
         }
-
         public List<ClienteModel> RetornarListaClientes()
         {
             return new ClienteModel().ListarTodosClientes();

@@ -64,14 +64,15 @@
         </tbody>
     </table>
 
-    <div style="float:left; font-size:22px" class="mb-3 mr-1" > Total: R$ </div>
+    <div style="float:left; font-size:22px" class="mb-3 mr-1"> Total: R$ </div>
     <div style="float:left; font-size:22px" id="divTotal"></div>
-    <input type="hidden" asp-for="Total" id="txtTotal"/>
+    
     <div>
-        <textarea asp-for="ListaProdutos" id="ListaProdutosJSON" style="resize:both" ></textarea>
+        <textarea asp-for="ListaProdutos" id="ListaProdutosJSON" style="resize:both"></textarea>
     </div>
 
     <button type="submit" class="btn btn-block btn-success">Registrar</button>
+    <button type="button" class="btn btn-block btn-primary" onclick="Voltar()">Listagem de Vendas</button>
 </form>
 
 <script>
@@ -83,23 +84,26 @@
     var ListaProdutos = document.getElementById("listaProdutos")
     var TotalVenda = document.getElementById("divTotal")
     var ListaProdutosJSON = document.getElementById("ListaProdutosJSON")
-    var txtTotal = document.getElementById("txtTotal")
+    var txtTotal = document.getElementById("txtTotal").replace(",",".")
     
-    
+    function Voltar() {
+        window.location.href = '../Venda/Index';
+    }
 
     function AdicionarProduto() {
         
 
         var DescricaoPreco = CodigoProduto.options[CodigoProduto.selectedIndex].text;
         var arrayDescricaoPreco = DescricaoPreco.split("|")
-        var total = (arrayDescricaoPreco[1].replace(",", ".") * QuantidadeProduto.value).toFixed(2)
+        
+        var total = (arrayDescricaoPreco[1].replace(",", ".") * QuantidadeProduto.value)        
         total = Math.round(total*100)/100
 
         Itens.Produtos.push({
             "CodigoProduto": CodigoProduto.value,
             "DescricaoProduto": arrayDescricaoPreco[0],
             "QuantidadeProduto": QuantidadeProduto.value,
-            "PrecoUnitario": arrayDescricaoPreco[1].replace(",","."),
+            "PrecoUnitario": arrayDescricaoPreco[1],
             "Total": total
         });
         ListaProdutosJSON.innerHTML = JSON.stringify(Itens.Produtos)
@@ -108,13 +112,16 @@
             "<td>" + CodigoProduto.value + "</td>" +
             "<td>" + arrayDescricaoPreco[0] + "</td>" +
             "<td>" + QuantidadeProduto.value + "</td>" +
-            "<td> R$ " + arrayDescricaoPreco[1].replace(",",".") + "</td>" +
+            "<td> R$ " + arrayDescricaoPreco[1] + "</td>" +
             "<td> R$ " + total + "</td>" +            
             "</tr>";
         ListaProdutos.innerHTML += produto
-        var totalGeral = (total + TotalVenda.innerText*1).toFixed(2)
+        var totalGeral = (Math.round((total + TotalVenda.innerText*1)*100)/100)
+
         TotalVenda.innerHTML = totalGeral
-        txtTotal.value = totalGeral.replace(",",".")
+        txtTotal.value = totalGeral
+        
+        
         
     }
 

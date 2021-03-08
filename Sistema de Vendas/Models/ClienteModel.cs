@@ -61,8 +61,7 @@ namespace Sistema_de_Vendas.Models
             }
             else
             {
-                sql = $"UPDATE cliente SET nome = '{Nome}', cpf_cnpj = '{CPF_CNPJ}', email = '{Email}' WHERE id = '{Id}' ";
-                
+                sql = $"UPDATE cliente SET nome = '{Nome}', cpf_cnpj = '{CPF_CNPJ}', email = '{Email}' WHERE id = '{Id}' ";                
             }
             objDAL.ExecutarComandoSQL(sql);
         }

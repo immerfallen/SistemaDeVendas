@@ -11,7 +11,7 @@ namespace Sistema_de_Vendas.Models
     public class VendedorModel
     {
         public string Id { get; set; }
-        [Required(ErrorMessage ="Informe o Nome do Vendedor")]
+        [Required(ErrorMessage ="Informe a porra do Nome do Vendedor")]
         public string Nome { get; set; }
                 
 
