@@ -17,29 +17,11 @@
 			type: 'pie',
 			data: {
 				datasets: [{
-					data: [
-						"10",
-                        "50",
-                        "5",
-                        "15",
-                        "10",
-					],
-					backgroundColor: [
-						"#cecece",
-                        "#124a89",
-                        "#cece89",
-                        "#c256e7",
-                        "#cec1cf",
-					],
+					data: [@Html.Raw(ViewBag.Valores)],
+					backgroundColor: [@Html.Raw(ViewBag.Cores)],
 					label: 'Dataset 1'
 				}],
-				labels: [
-					'Red',
-					'Orange',
-					'Yellow',
-					'Green',
-					'Blue'
-				]
+				labels: [@Html.Raw(ViewBag.Labels)]
 			},
 			options: {
 				responsive: true
@@ -49,8 +31,8 @@
 		window.onload = function() {
 			var ctx = document.getElementById('chart-area').getContext('2d');
 			window.myPie = new Chart(ctx, config);
-		};		
-		
+		};
+
     </script>
 </body>
 

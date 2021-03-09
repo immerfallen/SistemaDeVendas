@@ -25,6 +25,7 @@ namespace Sistema_de_Vendas.Models
         public bool ValidarLogin()
         {
             string sql = $"SELECT ID, NOME FROM VENDEDOR WHERE EMAIL='{Email}' AND SENHA='{Senha}'";
+            MySqlCommand Command = 
             DAL objDAL = new DAL();
             DataTable dt = objDAL.RetDataTable(sql);
             if (dt.Rows.Count>=1)

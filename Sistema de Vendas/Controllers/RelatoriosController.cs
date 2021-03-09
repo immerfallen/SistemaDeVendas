@@ -36,6 +36,25 @@ namespace Sistema_de_Vendas.Controllers
         }
         public IActionResult Grafico()
         {
+
+            List<GraficoProdutos> lista = new GraficoProdutos().RetornarGrafico();
+            string valores = "";
+            string labels = "";
+            string cores = "";
+
+            var random = new Random();
+            // Percorre a lista de itens para compor o gráfico
+            for (int i = 0; i < lista.Count; i++)
+            {
+                valores += lista[i].QuantidadeVendida.ToString() + ",";
+                labels += "'"+lista[i].DescricaoProduto.ToString() + "',";
+                //escolher aleatoriamente as cores para o gráfico
+                cores += "'" + String.Format("#{0:X6}", random.Next(0x1000000)) + "',";
+            }
+
+            ViewBag.Valores = valores;
+            ViewBag.Labels = labels;
+            ViewBag.Cores = cores;
             return View();
         }
 
