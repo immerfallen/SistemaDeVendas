@@ -90,6 +90,10 @@ namespace Sistema_de_Vendas.Models
             {
                 sql = $"INSERT INTO itens_venda(Venda_id, Produto_id,  qtde_produto, preco_produto) VALUES ({id_venda},{lista_produtos[i].CodigoProduto.ToString()},{lista_produtos[i].QuantidadeProduto.ToString()},{lista_produtos[i].PrecoUnitario.ToString().Replace(",",".")})";
                 objDAL.ExecutarComandoSQL(sql);
+
+                //Realiza a atualização do produto no estoque
+                sql = "UPDATE produto SET quantidade_estoque = (quantidade_estoque - " + int.Parse(lista_produtos[i].QuantidadeProduto.ToString()) + ")" + "WHERE id = " + lista_produtos[i].CodigoProduto.ToString();
+                objDAL.ExecutarComandoSQL(sql);
             }
 
         }
