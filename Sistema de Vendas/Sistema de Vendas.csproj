@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>Sistema_de_Vendas</RootNamespace>
+    <UserSecretsId>728f8efd-2e61-4b03-aaeb-efaae69aa096</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
